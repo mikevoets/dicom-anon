@@ -116,6 +116,7 @@ class Audit(object):
 
     def __init__(self, filename):
         self.db = sqlite3.connect(filename)
+        self.db.text_factory = lambda x: unicode(x, 'utf-8', 'ignore')  # XXX(mike): Possible wrong fix.
         self.cursor = self.db.cursor()
         if not os.path.isfile(filename):
             with self.db as db:
